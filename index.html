@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="calculator">
+    <!-- Menu Button -->
+    <button class="menu-button" onclick="toggleHistory()">☰</button>
+    <!-- Display Chosen Option -->
+    <div id="chosen-option" class="chosen-option"></div>
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+      <button class="operation" onclick="clearDisplay()">AC</button>
+      <button class="operation" onclick="deleteLast()">DE</button>
+      <button class="operation" onclick="appendToDisplay('%')">%</button>
+      <button class="operation" onclick="appendToDisplay('/')">/</button>
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      <button class="operation" onclick="appendToDisplay('*')">*</button>
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      <button class="operation" onclick="appendToDisplay('-')">-</button>
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      <button class="operation" onclick="appendToDisplay('+')">+</button>
+      <button class="double" onclick="appendToDisplay('0')">0</button>
+      <button onclick="appendToDisplay('.')">.</button>
+      <button class="operation" onclick="handleEquals()">=</button>
+    </div>
+    <!-- Profit/Loss Menu Button -->
+    <div class="profit-loss-menu">
+      <button class="operation" onclick="toggleProfitLossMenu()">Profit/Loss</button>
+      <div id="profit-loss-options" class="profit-loss-options">
+        <button onclick="handleProfit()">Profit</button>
+        <button onclick="handleLoss()">Loss</button>
+        <button onclick="handleProfitPercentage()">Profit %</button>
+        <button onclick="handleLossPercentage()">Loss %</button>
+      </div>
+    </div>
+    <!-- History Popup -->
+    <div id="history" class="history">
+      <h3>History</h3>
+      <ul id="history-list"></ul>
+      <div class="history-buttons">
+        <button class="edit-button" onclick="loadSelectedCalculation()">Edit</button>
+        <button class="clear-button" onclick="clearHistory()">Clear</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
