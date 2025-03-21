@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive Calculator</title>
+  <title>Futuristic Cosmic Calculator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="calculator">
-    <!-- Menu Button -->
     <button class="menu-button" onclick="toggleHistory()">☰</button>
-    <!-- Display Chosen Option -->
     <div id="chosen-option" class="chosen-option"></div>
     <input type="text" id="display" disabled>
     <div class="buttons">
@@ -34,24 +32,120 @@
       <button onclick="appendToDisplay('.')">.</button>
       <button class="operation" onclick="handleEquals()">=</button>
     </div>
-    <!-- Profit/Loss Menu Button -->
-    <div class="profit-loss-menu">
-      <button class="operation" onclick="toggleProfitLossMenu()">Profit/Loss</button>
-      <div id="profit-loss-options" class="profit-loss-options">
-        <button onclick="handleProfit()">Profit</button>
-        <button onclick="handleLoss()">Loss</button>
-        <button onclick="handleProfitPercentage()">Profit %</button>
-        <button onclick="handleLossPercentage()">Loss %</button>
+    <div class="menu-container">
+      <button class="main-menu-button" onclick="toggleSubMenu()">Cosmic Tools</button>
+      <div id="sub-menu" class="sub-menu">
+        <button class="fancy-button" onclick="togglePopup('profit-loss')">Profit/Loss</button>
+        <button class="fancy-button" onclick="togglePopup('date')">Date Calc</button>
+        <button class="fancy-button" onclick="togglePopup('currency')">Currency</button>
+        <button class="fancy-button" onclick="togglePopup('distance')">Distance</button>
       </div>
     </div>
-    <!-- History Popup -->
     <div id="history" class="history">
       <h3>History</h3>
       <ul id="history-list"></ul>
       <div class="history-buttons">
         <button class="edit-button" onclick="loadSelectedCalculation()">Edit</button>
+        <button class="predict-button" onclick="predictFuture()">Predict</button>
         <button class="clear-button" onclick="clearHistory()">Clear</button>
       </div>
+    </div>
+  </div>
+  <!-- Profit/Loss Popup -->
+  <div id="profit-loss-popup" class="popup profit-loss-bg">
+    <div class="popup-content">
+      <button class="close-button" onclick="togglePopup('profit-loss')">✖</button>
+      <h2>Profit/Loss Analyzer</h2>
+      <select id="profit-loss-mode" class="mode-select">
+        <option value="profit">Profit</option>
+        <option value="loss">Loss</option>
+        <option value="profitPercentage">Profit %</option>
+        <option value="lossPercentage">Loss %</option>
+      </select>
+      <input type="number" id="cp-input" placeholder="Cost Price (CP)">
+      <input type="number" id="sp-input" placeholder="Selling Price (SP)">
+      <button class="scan-button" onclick="calculateProfitLossResult()">Analyze</button>
+      <div id="profit-loss-output" class="output"></div>
+    </div>
+  </div>
+  <!-- Date Calculator Popup -->
+  <div id="date-popup" class="popup date-bg">
+    <div class="popup-content">
+      <button class="close-button" onclick="togglePopup('date')">✖</button>
+      <h2>Temporal Scanner</h2>
+      <input type="text" id="date-input" placeholder="YYYY-MM-DD">
+      <input type="number" id="speed-input" placeholder="Speed (% of Lightspeed)" min="0" max="99.9" step="0.1">
+      <input type="number" id="duration-input" placeholder="Travel Duration (years)">
+      <button class="scan-button" onclick="calculateDateResult()">Scan</button>
+      <div id="date-output" class="output"></div>
+    </div>
+  </div>
+  <!-- Currency Converter Popup -->
+  <div id="currency-popup" class="popup currency-bg">
+    <div class="popup-content">
+      <button class="close-button" onclick="togglePopup('currency')">✖</button>
+      <h2>Cosmic Exchange</h2>
+      <select id="from-currency" class="mode-select">
+        <option value="USD">USD - United States</option>
+        <option value="EUR">EUR - Eurozone</option>
+        <option value="GBP">GBP - United Kingdom</option>
+        <option value="JPY">JPY - Japan</option>
+        <option value="AUD">AUD - Australia</option>
+        <option value="CAD">CAD - Canada</option>
+        <option value="CHF">CHF - Switzerland</option>
+        <option value="CNY">CNY - China</option>
+        <option value="INR">INR - India</option>
+        <option value="BRL">BRL - Brazil</option>
+        <!-- Add remaining top 100 countries here (mocked for brevity) -->
+      </select>
+      <select id="to-currency" class="mode-select">
+        <option value="USD">USD - United States</option>
+        <option value="EUR">EUR - Eurozone</option>
+        <option value="GBP">GBP - United Kingdom</option>
+        <option value="JPY">JPY - Japan</option>
+        <option value="AUD">AUD - Australia</option>
+        <option value="CAD">CAD - Canada</option>
+        <option value="CHF">CHF - Switzerland</option>
+        <option value="CNY">CNY - China</option>
+        <option value="INR">INR - India</option>
+        <option value="BRL">BRL - Brazil</option>
+        <!-- Add remaining top 100 countries here -->
+      </select>
+      <input type="number" id="currency-input" placeholder="Amount">
+      <button class="scan-button" onclick="convertCurrency()">Convert</button>
+      <button class="quantum-button" onclick="quantumFluctuation()">Quantum Fluctuation</button>
+      <div id="currency-output" class="output"></div>
+    </div>
+  </div>
+  <!-- Distance Calculator Popup -->
+  <div id="distance-popup" class="popup distance-bg">
+    <div class="popup-content">
+      <button class="close-button" onclick="togglePopup('distance')">✖</button>
+      <h2>Interstellar Nav</h2>
+      <select id="start-point" class="mode-select">
+        <option value="Earth">Earth</option>
+        <option value="Mercury">Mercury</option>
+        <option value="Venus">Venus</option>
+        <option value="Mars">Mars</option>
+        <option value="Jupiter">Jupiter</option>
+        <option value="Saturn">Saturn</option>
+        <option value="Uranus">Uranus</option>
+        <option value="Neptune">Neptune</option>
+      </select>
+      <select id="end-point" class="mode-select">
+        <option value="Earth">Earth</option>
+        <option value="Mercury">Mercury</option>
+        <option value="Venus">Venus</option>
+        <option value="Mars">Mars</option>
+        <option value="Jupiter">Jupiter</option>
+        <option value="Saturn">Saturn</option>
+        <option value="Uranus">Uranus</option>
+        <option value="Neptune">Neptune</option>
+      </select>
+      <input type="number" id="speed-distance" placeholder="Speed (km/s)">
+      <button class="scan-button" onclick="calculateDistance()">Calculate</button>
+      <button class="hyperspace-button" onclick="hyperspaceJump()">Hyperspace Jump</button>
+      <div id="distance-output" class="output"></div>
     </div>
   </div>
   <script src="script.js"></script>
